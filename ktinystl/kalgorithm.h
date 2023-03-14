@@ -40,13 +40,15 @@ namespace ktinystl {
 	void linearInsert(RandomAccessIter first, RandomAccessIter last, T value)
 	{
 		auto val = *last;
-		if (val < *first)
+		if (val <= *first)
 		{
 			copy_backward(first, last, last + 1);
 			*first = val;
 		}
 		else
+		{
 			unguardLinearInsert(last, value);
+		}
 	}
 
 	template<class RandomAccessIter>
@@ -56,7 +58,7 @@ namespace ktinystl {
 			return;
 		for (auto i = first + 1; i != last; i++)
 		{
-			linearInsert(first, i, *first);
+			linearInsert(first,i, *i);
 		}
 	}
 
@@ -99,9 +101,9 @@ namespace ktinystl {
 	template<class RandomAccessIter>
 	void unguardInsertionSort(RandomAccessIter first, RandomAccessIter last)
 	{
-		for (auto i = first + 1; i != last; i++)
+		for (auto i = first; i != last; i++)
 		{
-			linearInsert(first, i, first);
+			unguardLinearInsert(i, first);
 		}
 	}
 
@@ -111,7 +113,7 @@ namespace ktinystl {
 		if (last - first > 16)
 		{
 			insertionSort(first, first + 16);
-			unguardInsertionSort(first + 16, last);
+			finalInsertSort(first + 16, last);
 		}
 		else
 		{

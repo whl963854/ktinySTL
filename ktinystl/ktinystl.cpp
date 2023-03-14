@@ -6,6 +6,7 @@
 #include "kdeque_test.cpp"
 #include "kstack_test.cpp"
 #include "kqueue_test.cpp"
+#include "ksort_test.cpp"
 
 int main()
 {
@@ -14,5 +15,6 @@ int main()
 	testDeque();
 	testStack();
 	testQueue();
+	testSort();
 	return 0;
 }
